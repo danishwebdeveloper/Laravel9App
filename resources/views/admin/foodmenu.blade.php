@@ -19,8 +19,8 @@
       <input type="text" name="price" class="form-control" id="exampleInputPassword1" placeholder="Enter Price">
     </div>
         <div class="form-group">
-          <label for="file">Example file input</label>
-          <input type="file" name="file" class="form-control-file" id="file">
+          <label for="image">Example file input</label>
+          <input type="file" name="image" class="form-control-file" id="image">
         </div>
         <div class="form-group">
             <label for="exampleFormControlTextarea1">Description</label>

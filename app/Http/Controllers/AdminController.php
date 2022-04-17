@@ -38,17 +38,13 @@ class AdminController extends Controller
         $food->title = $request->title;
         $food->price = $request->price;
 
-        // Image upload
-        $path = public_path('/imagesUpload');
-        if ( ! file_exists($path) ) {
-            mkdir($path, 0777, true);
-        }
+        // Image Upload
+        $file = $request->file('image');
+        $filename = time().'.'. $file->getClientOriginalName();
+        $location = 'storage/imagesupload';
+        $file->move($location, $filename);
+        $food->image = $filename;
 
-        $file = $request->file('file');
-        $fileName = uniqid() . '.' . trim($file->getClientOriginalName());
-        $food->image = $file;
-        $file->move($path, $fileName);
-        
         $food->description =  $request->description;
         $food->save();
 
