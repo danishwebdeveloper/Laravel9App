@@ -57,9 +57,13 @@ https://templatemo.com/tm-558-klassy-cafe
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
-                            <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
+                            <li class="scroll-to-section"><a href="{{ url('/') }}" class="active">Home</a></li>
                             <li class="scroll-to-section"><a href="#about">About</a></li>
-                            <li class="scroll-to-section"><a href="#menu">Menu</a></li>
+                            @if (Route::has('login'))
+                            @auth
+                            <li class="scroll-to-section"><a href="{{ url('/foodmenu') }}">Menu</a></li>
+                            @endauth
+                            @endif
                             <li class="scroll-to-section"><a href="#chefs">Chefs</a></li>
                             <li class="submenu">
                                 <a href="javascript:;">Features</a>

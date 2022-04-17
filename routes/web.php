@@ -32,6 +32,11 @@ Route::get('/foodmenu', [AdminController::class, 'foodmenu']);
 
 Route::post('/uploadfood', [AdminController::class, 'uploads'])->name('uploads-food');
 
+Route::get('/showfood', [AdminController::class, 'show']);
+Route::get('/deleteitem/{id}', [AdminController::class, 'deleteFood']);
+Route::get('/viewfood/{id}', [AdminController::class, 'updateView']);
+Route::post('/updatefood/{id}', [AdminController::class, 'updatefood'])->name('update-food');
+
 
 // Delete User
 Route::get('/deleteuser/{id}', [AdminController::class, 'delete']);

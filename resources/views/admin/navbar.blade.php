@@ -19,9 +19,15 @@
         <li class="nav-item">
           <a class="nav-link" href="{{ url('/foodmenu') }}">
             <i class="menu-icon typcn typcn-shopping-bag"></i>
-            <span class="menu-title">Food Menu</span>
+            <span class="menu-title">Add Foods</span>
           </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url('/showfood') }}">
+              <i class="menu-icon typcn typcn-shopping-bag"></i>
+              <span class="menu-title">Food Menus</span>
+            </a>
+          </li>
         <li class="nav-item">
           <a class="nav-link" href="pages/charts/chartjs.html">
             <i class="menu-icon typcn typcn-th-large-outline"></i>
