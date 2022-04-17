@@ -24,6 +24,15 @@ Route::get('/adminhome', [AdminController::class, 'index']);
 // for users
 Route::get('/users', [AdminController::class, 'users']);
 
+// Food Menu
+Route::get('/foodmenu', [AdminController::class, 'foodmenu']);
+
+// Uploadfood
+// Route::post('/uploadfood', [AdminController::class, 'uploadfood']);
+
+Route::post('/uploadfood', [AdminController::class, 'uploads'])->name('uploads-food');
+
+
 // Delete User
 Route::get('/deleteuser/{id}', [AdminController::class, 'delete']);
 

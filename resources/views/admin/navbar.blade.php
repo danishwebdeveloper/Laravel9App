@@ -13,13 +13,13 @@
         <li class="nav-item">
           <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
             <i class="menu-icon typcn typcn-coffee"></i>
-            <span class="menu-title">Foods</span>
+            <span class="menu-title">Chefs</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="pages/forms/basic_elements.html">
+          <a class="nav-link" href="{{ url('/foodmenu') }}">
             <i class="menu-icon typcn typcn-shopping-bag"></i>
-            <span class="menu-title">Chefs</span>
+            <span class="menu-title">Food Menu</span>
           </a>
         </li>
         <li class="nav-item">
