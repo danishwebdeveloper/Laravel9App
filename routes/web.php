@@ -37,9 +37,14 @@ Route::get('/deleteitem/{id}', [AdminController::class, 'deleteFood']);
 Route::get('/viewfood/{id}', [AdminController::class, 'updateView']);
 Route::post('/updatefood/{id}', [AdminController::class, 'updatefood'])->name('update-food');
 
-
 // Delete User
 Route::get('/deleteuser/{id}', [AdminController::class, 'delete']);
+
+
+// Table Reservation
+Route::post('/reservation', [AdminController::class, 'reservation'])->name('reservation-table');
+Route::get('/reservationView', [AdminController::class, 'reservationView']);
+Route::get('/completed/{id}', [AdminController::class, 'completed']);
 
 Route::middleware([
     'auth:sanctum',

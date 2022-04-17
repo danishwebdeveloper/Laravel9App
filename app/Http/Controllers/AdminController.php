@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\food;
+use App\Models\Reservation;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -55,9 +56,13 @@ class AdminController extends Controller
     {
         $food = food::find($id);
         return view('admin.updateview', compact('food'));
+    }
 
-
-
+    public function completed($id)
+    {
+        $reservation = Reservation::find($id);
+        $reservation->delete();
+        return redirect('/reservationView')->with('success', 'Order Completed!');
     }
 
     public function updatefood(Request $request, $id)
@@ -82,6 +87,26 @@ class AdminController extends Controller
     public function show(){
         $foods = food::all();
         return view('admin.showFood', compact('foods'));
+    }
+
+    public function reservation(Request $request)
+    {
+        $reservation = new Reservation();
+        $reservation->name = $request->name;
+        $reservation->email = $request->email;
+        $reservation->number = $request->phone;
+        $reservation->persons = $request->num;
+        $reservation->date = $request->date;
+        $reservation->time = $request->time;
+        $reservation->message = $request->message;
+        $reservation->save();
+        return redirect('/')->with('success', 'Reservation Successfully');
+    }
+
+    public function reservationView()
+    {
+        $reservations = Reservation::all();
+        return view('admin.reservationView', compact('reservations'));
     }
 
     public function deleteFood($id)
