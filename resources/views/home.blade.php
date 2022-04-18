@@ -68,11 +68,13 @@ https://templatemo.com/tm-558-klassy-cafe
                             <li class="scroll-to-section"><a href="#chefs">Chefs</a></li>
 
                             @auth
-                            <li style="background-color: lightblue" class="scroll-to-section"><a href="">AddtoCart[{{ $counts }}]</a></li>
+                            <li style="background-color: lightblue" class="scroll-to-section">
+                                <a href="{{ url('/showcart', Auth::user()->id) }}">AddtoCart[{{ $counts }}]</a>
+                            </li>
                             @endauth
 
                             @guest
-                            <li style="background-color: lightblue" class="scroll-to-section"><a href="{{ url('/login') }}">AddtoCart</a></li>
+                            <li style="background-color: lightblue" class="scroll-to-section"><a href="{{ url('/login') }}">Cart</a></li>
 
                             @endguest
                             <li class="submenu">
@@ -232,6 +234,8 @@ https://templatemo.com/tm-558-klassy-cafe
                             @csrf
 
                         <input type="number" name="quantity" min="1" style="margin-block: 3px" placeholder="Enter Quantity"/>
+
+
                         <input type="submit" class="btn btn-outline-success small" value="Add To Cart"/>
 
                         </form>

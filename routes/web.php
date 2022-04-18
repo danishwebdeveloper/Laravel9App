@@ -56,6 +56,7 @@ Route::post('/update/{id}', [AdminController::class, 'updateChef'])->name('updat
 
 // Add to Cart
 Route::post('/addtocart/{id}', [HomeController::class, 'addtoCart'])->name('add-to-cart');
+Route::get('/showcart/{id}', [HomeController::class, 'showCart']);
 
 
 Route::middleware([
