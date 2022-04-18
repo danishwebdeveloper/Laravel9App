@@ -59,12 +59,22 @@ https://templatemo.com/tm-558-klassy-cafe
                         <ul class="nav">
                             <li class="scroll-to-section"><a href="{{ url('/') }}" class="active">Home</a></li>
                             <li class="scroll-to-section"><a href="#about">About</a></li>
+
                             @if (Route::has('login'))
                             @auth
                             <li class="scroll-to-section"><a href="{{ url('/foodmenu') }}">Menu</a></li>
                             @endauth
                             @endif
                             <li class="scroll-to-section"><a href="#chefs">Chefs</a></li>
+
+                            @auth
+                            <li style="background-color: lightblue" class="scroll-to-section"><a href="">AddtoCart[{{ $counts }}]</a></li>
+                            @endauth
+
+                            @guest
+                            <li style="background-color: lightblue" class="scroll-to-section"><a href="{{ url('/login') }}">AddtoCart</a></li>
+
+                            @endguest
                             <li class="submenu">
                                 <a href="javascript:;">Features</a>
                                 <ul>
@@ -218,10 +228,13 @@ https://templatemo.com/tm-558-klassy-cafe
                             </div>
 
                         </div>
-                        <form action="{{ route('add-to-cart') }}" method="post" enctype="multipart/form-data">
-                            <input type="number" name="quantity" style="margin-block: 3px" placeholder="Enter Quantity"/>
-                            <input type="submit" class="btn btn-outline-success small" value="Add To Cart"/>
-                         </form>
+                        <form action="{{ route('add-to-cart', $dish->id) }}" method="post" enctype="multipart/form-data">
+                            @csrf
+
+                        <input type="number" name="quantity" min="1" style="margin-block: 3px" placeholder="Enter Quantity"/>
+                        <input type="submit" class="btn btn-outline-success small" value="Add To Cart"/>
+
+                        </form>
                     </div>
                     @endforeach
 
