@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Chef;
 use App\Models\food;
 use App\Models\Reservation;
 use App\Models\User;
@@ -114,5 +115,57 @@ class AdminController extends Controller
         $food = food::find($id);
         $food->delete();
         return redirect('/foodmenu')->with('success', 'Deleted Food Successfully!');
+    }
+
+    public function viewChefs()
+    {
+        $chefs = Chef::all();
+        return view('admin.viewchefs', compact('chefs'));
+    }
+
+    public function addChef(Request $request)
+    {
+        $addChef = new Chef();
+        $addChef->name = $request->name;
+
+        $file = $request->file('file');
+        $fileName = time(). '.' . $file->getClientOriginalName();
+        $location = 'storage/imagesupload';
+        $file->move($location, $fileName);
+        $addChef->image = $fileName;
+
+        $addChef->cheftype = $request->chefoption;
+        $addChef->save();
+
+        return redirect()->back()->with('success', 'Chef Added Successfully!!');
+    }
+
+    public function deleteChef($id){
+        $chefdelete = Chef::find($id);
+        $chefdelete->delete();
+        return redirect()->back()->with('success', 'Chef Deleted Successfully!');
+    }
+
+    public function updateViewChef($id)
+    {
+        $chef = Chef::find($id);
+        return view('admin.updatechefs', compact('chef'));
+    }
+
+    public function updateChef(Request $request, $id)
+    {
+        $addChef = Chef::find($id);
+        $addChef->name = $request->name;
+
+        $file = $request->file('file');
+        $fileName = time(). '.' . $file->getClientOriginalName();
+        $location = 'storage/imagesupload';
+        $file->move($location, $fileName);
+        $addChef->image = $fileName;
+
+        $addChef->cheftype = $request->chefoption;
+        $addChef->save();
+
+        return redirect()->back()->with('success', 'Chef Updated Successfully!!');
     }
 }

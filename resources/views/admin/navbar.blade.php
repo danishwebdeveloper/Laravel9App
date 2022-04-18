@@ -11,7 +11,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+          <a class="nav-link" data-toggle="collapse" href="{{ url('/viewchefs') }}" aria-expanded="false" aria-controls="ui-basic">
             <i class="menu-icon typcn typcn-coffee"></i>
             <span class="menu-title">Chefs</span>
           </a>

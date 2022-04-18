@@ -216,81 +216,26 @@ https://templatemo.com/tm-558-klassy-cafe
                                   <div class="scroll-to-section"><a href="#reservation">Make Reservation <i class="fa fa-angle-down"></i></a></div>
                               </div>
                             </div>
+
                         </div>
+                        <form action="{{ route('add-to-cart') }}" method="post" enctype="multipart/form-data">
+                            <input type="number" name="quantity" style="margin-block: 3px" placeholder="Enter Quantity"/>
+                            <input type="submit" class="btn btn-outline-success small" value="Add To Cart"/>
+                         </form>
                     </div>
                     @endforeach
+
                 </div>
             </div>
         </div>
     </section>
+
+    {{-- Add to Cart --}}
+
     <!-- ***** Menu Area Ends ***** -->
 
     <!-- ***** Chefs Area Starts ***** -->
-    <section class="section" id="chefs">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 offset-lg-4 text-center">
-                    <div class="section-heading">
-                        <h6>Our Chefs</h6>
-                        <h2>We offer the best ingredients for you</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="chef-item">
-                        <div class="thumb">
-                            <div class="overlay"></div>
-                            <ul class="social-icons">
-                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                            </ul>
-                            <img src="assets/images/chefs-01.jpg" alt="Chef #1">
-                        </div>
-                        <div class="down-content">
-                            <h4>Randy Walker</h4>
-                            <span>Pastry Chef</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="chef-item">
-                        <div class="thumb">
-                            <div class="overlay"></div>
-                            <ul class="social-icons">
-                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa fa-behance"></i></a></li>
-                            </ul>
-                            <img src="assets/images/chefs-02.jpg" alt="Chef #2">
-                        </div>
-                        <div class="down-content">
-                            <h4>David Martin</h4>
-                            <span>Cookie Chef</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="chef-item">
-                        <div class="thumb">
-                            <div class="overlay"></div>
-                            <ul class="social-icons">
-                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa fa-google"></i></a></li>
-                            </ul>
-                            <img src="assets/images/chefs-03.jpg" alt="Chef #3">
-                        </div>
-                        <div class="down-content">
-                            <h4>Peter Perkson</h4>
-                            <span>Pancake Chef</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+        @include('chefsview')
     <!-- ***** Chefs Area Ends ***** -->
 
     <!-- ***** Reservation Us Area Starts ***** -->

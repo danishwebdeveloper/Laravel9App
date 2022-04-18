@@ -46,6 +46,18 @@ Route::post('/reservation', [AdminController::class, 'reservation'])->name('rese
 Route::get('/reservationView', [AdminController::class, 'reservationView']);
 Route::get('/completed/{id}', [AdminController::class, 'completed']);
 
+
+// Chefs
+Route::get('/viewchefs', [AdminController::class, 'viewChefs']);
+Route::post('/addchef', [AdminController::class, 'addChef'])->name('view-chef');
+Route::get('/deletechef/{id}', [AdminController::class, 'deleteChef']);
+Route::get('/updatechef/{id}', [AdminController::class, 'updateViewChef']);
+Route::post('/update/{id}', [AdminController::class, 'updateChef'])->name('update-chef');
+
+// Add to Cart
+Route::post('/addtocart', [HomeController::class, 'addtoCart'])->name('add-to-cart');
+
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
