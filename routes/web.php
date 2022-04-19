@@ -58,6 +58,11 @@ Route::get('/showcart/{id}', [HomeController::class, 'showCart']);
 Route::get('/deletecartitem/{id}', [HomeController::class, 'deleteCartItem']);
 Route::post('/orderConfirm', [HomeController::class, 'orderConfirmation'])->name('order-confirmation');
 
+// Customer Orders by Admin
+Route::get('/customerOrdered', [AdminController::class, 'customerOrder']);
+Route::get('/search', [AdminController::class, 'searchOrder'])->name('search-order');
+
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

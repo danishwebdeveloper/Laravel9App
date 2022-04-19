@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Chef;
 use App\Models\food;
+use App\Models\Order;
 use App\Models\Reservation;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -168,4 +169,22 @@ class AdminController extends Controller
 
         return redirect()->back()->with('success', 'Chef Updated Successfully!!');
     }
+
+
+    public function customerOrder()
+    {
+        $foodOrders = Order::all();
+        return view('admin.orderView', compact('foodOrders'));
+    }
+
+    public function searchOrder(Request $request)
+    {
+        $search = $request->searchOrder;
+        $foodOrders = Order::where('foodname','LIKE','%'. $search.'%')
+        ->orwhere('username', 'LIKE', '%'.$search. '%')
+        ->get();
+        return view('admin.orderView', compact('foodOrders'));
+    }
 }
+
+

@@ -34,6 +34,12 @@
             <span class="menu-title">Reservation</span>
           </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url('/customerOrdered') }}">
+              <i class="menu-icon typcn typcn-th-large-outline"></i>
+              <span class="menu-title">Customer Orders</span>
+            </a>
+          </li>
       </ul>
     </nav>
 
