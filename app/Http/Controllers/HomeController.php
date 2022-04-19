@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\Chef;
 use App\Models\food;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -63,13 +64,38 @@ class HomeController extends Controller
     public function showCart(Request $request, $id)
     {
         $count = Cart::where('user_id', $id)->count();
+        $deleteData = Cart::select('*')->where('user_id', '=', $id)->get();
 
         $cartOrders = Cart::where('user_id', $id)->join('food', 'food_id', '=' , 'food.id')->get();
 
         return view('viewcart', [
             'count' => $count,
             'carOrders' => $cartOrders,
+            'deleteData' => $deleteData,
         ]);
+    }
+
+    public function deleteCartItem($id){
+        $delete = Cart::find($id);
+        $delete->delete();
+        return redirect()->back()->with('success', 'Item Deleted!!');
+    }
+
+    public function orderConfirmation(Request $request)
+    {
+
+        foreach($request->foodname as $key=>$food){
+            $order = new Order();
+            $order->foodname = $food;
+            $order->price = $request->price[$key]; //for every foodname give his price (using index)
+            $order->quantity = $request->quantity[$key];
+
+            $order->username = $request->name;
+            $order->cellphone = $request->num;
+            $order->address = $request->address;
+            $order->save();
+        }
+        return redirect()->back()->with('success', 'Ordered Successfully!');
     }
 
 }

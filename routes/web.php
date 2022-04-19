@@ -19,10 +19,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home-controller');
 Route::get('/redirectsroute', [HomeController::class, 'redirects']);
-
 Route::get('/adminhome', [AdminController::class, 'index']);
-// for users
+
+// for Users
 Route::get('/users', [AdminController::class, 'users']);
+Route::get('/deleteuser/{id}', [AdminController::class, 'delete']);
 
 // Food Menu
 Route::get('/foodmenu', [AdminController::class, 'foodmenu']);
@@ -36,9 +37,6 @@ Route::get('/showfood', [AdminController::class, 'show']);
 Route::get('/deleteitem/{id}', [AdminController::class, 'deleteFood']);
 Route::get('/viewfood/{id}', [AdminController::class, 'updateView']);
 Route::post('/updatefood/{id}', [AdminController::class, 'updatefood'])->name('update-food');
-
-// Delete User
-Route::get('/deleteuser/{id}', [AdminController::class, 'delete']);
 
 
 // Table Reservation
@@ -57,7 +55,8 @@ Route::post('/update/{id}', [AdminController::class, 'updateChef'])->name('updat
 // Add to Cart
 Route::post('/addtocart/{id}', [HomeController::class, 'addtoCart'])->name('add-to-cart');
 Route::get('/showcart/{id}', [HomeController::class, 'showCart']);
-
+Route::get('/deletecartitem/{id}', [HomeController::class, 'deleteCartItem']);
+Route::post('/orderConfirm', [HomeController::class, 'orderConfirmation'])->name('order-confirmation');
 
 Route::middleware([
     'auth:sanctum',

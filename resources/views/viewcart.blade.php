@@ -125,6 +125,11 @@ https://templatemo.com/tm-558-klassy-cafe
     <br>
     <br>
     <h2>Ordered!!</h2>
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
     <table class="table">
         <thead>
           <tr>
@@ -132,22 +137,80 @@ https://templatemo.com/tm-558-klassy-cafe
             <th scope="col">Food Name</th>
             <th scope="col">Price</th>
             <th scope="col">Quantity</th>
+            <th scope="col">Action</th>
           </tr>
         </thead>
+        <form action="{{ route('order-confirmation') }}" method="POST">
+            @csrf
         <tbody>
             @foreach ($carOrders as $carOrder)
           <tr>
             <th scope="row">1</th>
-            <td>{{ $carOrder->title}}</td>
-            <td>{{ $carOrder->price }}</td>
-            <td>{{ $carOrder->quantity }}</td>
+
+            <td>
+                <input type="text" name="foodname[]" value="{{ $carOrder->title}}" hidden/>
+                {{ $carOrder->title}}
+            </td>
+            <td>
+                <input type="text" name="price[]" value=" {{ $carOrder->price }}" hidden />
+                {{ $carOrder->price }}
+            </td>
+            <td>
+                <input type="text" name="quantity[]" value="{{ $carOrder->quantity }}" hidden/>
+                {{ $carOrder->quantity }}
+            </td>
           </tr>
           @endforeach
+          @foreach ($deleteData as $data)
+         <td> <a class="btn btn-outline-danger small" href="{{ url('/deletecartitem', $data->id) }}">Remove</a> </td>
+
+         @endforeach
         </tbody>
       </table>
+      <div>
+          <a class="btn btn-primary" id="orderBtn">Order Now</a>
+      </div>
     </div>
+    <div id="orderForm" class="container" style="display: none;">
+        <div class="form-group row">
+            <label for="Name" class="col-sm-2 col-form-label">Name</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="name" id="name" placeholder="Name">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="number" class="col-sm-2 col-form-label">Phone Number</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="num" id="num" placeholder="Phonenumber">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="address" class="col-sm-2 col-form-label">Your Address</label>
+            <div class="col-sm-10">
+                <input type="textarea" class="form-control" name="address" id="address" placeholder="Address">
+            </div>
+        </div>
+
+        <button type="submit" id="orderConfirmation" class="btn btn-outline-primary">Order Confirmed</button>
+        <button type="submit" id="closeBtn" class="btn btn-outline-danger">Close</button>
+</div>
+</form>
   <!-- jQuery -->
-    <script src="assets/js/jquery-2.1.0.min.js"></script>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+  {{-- jQuery For Order Confirmation --}}
+   <script>
+        $(function(){
+          $('#orderBtn').on('click', function(){
+              $('#orderForm').show();
+          });
+
+          $('#closeBtn').on('click', function(){
+                $('#orderForm').hide();
+           });
+        });
+    </script>
 
     <!-- Bootstrap -->
     <script src="assets/js/popper.js"></script>
