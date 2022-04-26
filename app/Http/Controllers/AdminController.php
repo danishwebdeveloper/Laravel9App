@@ -3,19 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\FoodRequest;
+use App\Http\Requests\TableReservation;
 use App\Models\Chef;
 use App\Models\food;
 use App\Models\Order;
 use App\Models\Reservation;
 use App\Models\User;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
 class AdminController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         // dd('hoo');
         return view('admin.adminhome');
     }
@@ -27,7 +27,6 @@ class AdminController extends Controller
         return view('admin.adminusers', compact('users'));
     }
 
-
     public function delete($id)
     {
         $user = User::find($id);
@@ -35,7 +34,8 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
-    public function foodmenu(){
+    public function foodmenu()
+    {
         return view('admin.foodmenu');
     }
 
@@ -49,15 +49,15 @@ class AdminController extends Controller
         $food->price = $request->price;
 
         // Image Upload
-        if($request->hasFile('image')){
-        $file = $request->file('image');
-        $filename = time().'.'. $file->getClientOriginalName();
-        $location = 'storage/imagesupload';
-        $file->move($location, $filename);
-        $food->image = $filename;
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filename = time() . '.' . $file->getClientOriginalName();
+            $location = 'storage/imagesupload';
+            $file->move($location, $filename);
+            $food->image = $filename;
         }
 
-        $food->description =  $request->description;
+        $food->description = $request->description;
 
         $food->save();
         return redirect(url('/adminhome'))->with('success', 'Food Added Successfully!');
@@ -86,33 +86,37 @@ class AdminController extends Controller
 
         // Image Upload
         $file = $request->file('image');
-        $filename = time().'.'. $file->getClientOriginalName();
+        $filename = time() . '.' . $file->getClientOriginalName();
         $location = 'storage/imagesupload';
         $file->move($location, $filename);
         $food->image = $filename;
-        $food->description =  $request->description;
+        $food->description = $request->description;
         $food->save();
         return redirect(url('/adminhome'))->with('success', 'Food Updated Successfully!');
     }
 
-
-    public function show(){
+    public function show()
+    {
         $foods = food::all();
         return view('admin.showFood', compact('foods'));
     }
 
-    public function reservation(Request $request)
+    public function reservation(TableReservation $request)
     {
-        $reservation = new Reservation();
+
+        $validator = $request->validated();
+        $reservation = Reservation::create($validator);
+
         $reservation->name = $request->name;
         $reservation->email = $request->email;
-        $reservation->number = $request->phone;
-        $reservation->persons = $request->num;
+        $reservation->number = $request->number;
+        $reservation->persons = $request->persons;
         $reservation->date = $request->date;
         $reservation->time = $request->time;
         $reservation->message = $request->message;
+
         $reservation->save();
-        return redirect('/')->with('success', 'Reservation Successfully');
+        return redirect('/')->with('success', "Your Successfully Reserved The Table!!");
     }
 
     public function reservationView()
@@ -140,7 +144,7 @@ class AdminController extends Controller
         $addChef->name = $request->name;
 
         $file = $request->file('file');
-        $fileName = time(). '.' . $file->getClientOriginalName();
+        $fileName = time() . '.' . $file->getClientOriginalName();
         $location = 'storage/imagesupload';
         $file->move($location, $fileName);
         $addChef->image = $fileName;
@@ -151,7 +155,8 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Chef Added Successfully!!');
     }
 
-    public function deleteChef($id){
+    public function deleteChef($id)
+    {
         $chefdelete = Chef::find($id);
         $chefdelete->delete();
         return redirect()->back()->with('success', 'Chef Deleted Successfully!');
@@ -169,7 +174,7 @@ class AdminController extends Controller
         $addChef->name = $request->name;
 
         $file = $request->file('file');
-        $fileName = time(). '.' . $file->getClientOriginalName();
+        $fileName = time() . '.' . $file->getClientOriginalName();
         $location = 'storage/imagesupload';
         $file->move($location, $fileName);
         $addChef->image = $fileName;
@@ -180,7 +185,6 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Chef Updated Successfully!!');
     }
 
-
     public function customerOrder()
     {
         $foodOrders = Order::all();
@@ -190,11 +194,9 @@ class AdminController extends Controller
     public function searchOrder(Request $request)
     {
         $search = $request->searchOrder;
-        $foodOrders = Order::where('foodname','LIKE','%'. $search.'%')
-        ->orwhere('username', 'LIKE', '%'.$search. '%')
-        ->get();
+        $foodOrders = Order::where('foodname', 'LIKE', '%' . $search . '%')
+            ->orwhere('username', 'LIKE', '%' . $search . '%')
+            ->get();
         return view('admin.orderView', compact('foodOrders'));
     }
 }
-
-
