@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FoodRequest;
 use App\Models\Chef;
 use App\Models\food;
 use App\Models\Order;
 use App\Models\Reservation;
 use App\Models\User;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class AdminController extends Controller
 {
@@ -35,23 +39,29 @@ class AdminController extends Controller
         return view('admin.foodmenu');
     }
 
-    public function uploads(Request $request){
+    public function uploads(FoodRequest $request)
+    {
+        // Validations
+        $validator = $request->validated();
+        $food = food::create($validator);
 
-        $food = new food();
         $food->title = $request->title;
         $food->price = $request->price;
 
         // Image Upload
+        if($request->hasFile('image')){
         $file = $request->file('image');
         $filename = time().'.'. $file->getClientOriginalName();
         $location = 'storage/imagesupload';
         $file->move($location, $filename);
         $food->image = $filename;
+        }
 
         $food->description =  $request->description;
-        $food->save();
 
+        $food->save();
         return redirect(url('/adminhome'))->with('success', 'Food Added Successfully!');
+
     }
 
     public function updateView($id)

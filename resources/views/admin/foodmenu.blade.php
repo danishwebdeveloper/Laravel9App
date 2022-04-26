@@ -8,6 +8,15 @@
     <br>
 <h3>Add Food Menu</h3>
 <br>
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 <form action="{{ route('uploads-food') }}" method="post" enctype="multipart/form-data">
     @csrf
     <div class="form-group">
@@ -28,5 +37,6 @@
           </div>
     <button type="submit" class="btn btn-primary" style="color: black;" >Submit</button>
   </form>
+
 </div>
 @endsection

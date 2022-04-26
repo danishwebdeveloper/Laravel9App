@@ -10,7 +10,7 @@
 <form action="{{ route('search-order') }}" method="get">
 <div class="input-group">
     <div class="form-outline">
-      <input type="search" name="searchOrder" id="form1" class="form-control" />
+      <input type="search" placeholder="search..." name="searchOrder" id="form1" class="form-control" />
       {{-- <label class="form-label" for="form1">Search</label> --}}
     </div>
     <input type="submit" name="btn" value="Search" class="btn btn-outline-primary">
