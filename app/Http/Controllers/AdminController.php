@@ -105,15 +105,15 @@ class AdminController extends Controller
     {
 
         $validator = $request->validated();
-        $reservation = Reservation::create($validator);
+        $reservation = Reservation::create($validator, $request->all());
 
-        $reservation->name = $request->name;
-        $reservation->email = $request->email;
-        $reservation->number = $request->number;
-        $reservation->persons = $request->persons;
-        $reservation->date = $request->date;
-        $reservation->time = $request->time;
-        $reservation->message = $request->message;
+        // $reservation->name = $request->name;
+        // $reservation->email = $request->email;
+        // $reservation->number = $request->number;
+        // $reservation->persons = $request->persons;
+        // $reservation->date = $request->date;
+        // $reservation->time = $request->time;
+        // $reservation->message = $request->message;
 
         $reservation->save();
         return redirect('/')->with('success', "Your Successfully Reserved The Table!!");
